@@ -1,0 +1,85 @@
+@import "./styles/typography";
+@import "./styles/scales";
+@import "./styles/colors";
+
+
+body{
+    @include primary-header-font; 
+    .App{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    .chart-div{
+        margin: 1%;
+        width: 70%;
+        height: 55%;
+    }
+    .header-div{
+        width: 50%;
+        padding-left: 1%;
+        margin: 0px;
+    }
+        .auth-forms-container{
+            width: 40%;
+            height: 10%;
+            float: right;
+
+            .auth-header{
+                padding-top: 1%;
+                display: flex;
+                flex-wrap: wrap;
+                    h4{
+                        padding-right: 15rem;
+                        margin-top: 2rem;
+                        margin-bottom: 0.5rem;
+                        float:  left;
+                    }
+             }
+            .log-in-forms{   
+                display: flex;
+                
+                }
+            .auth-forms{
+                display: flex;
+                flex-wrap: wrap;
+                }           
+    }
+    
+    .logoutdiv{
+        margin-left: auto;
+        padding-top: 0.5%;
+        padding-right: 0.8%;
+        order: 2;
+    }
+    .dashboard{
+
+    }
+}
+.dashboard-header{
+    display: flex;
+    justify-content: space-between;
+    float: right;
+    width: 53%; 
+    margin-right: 1%;
+    height: 10%;
+}
+}
+
+input{
+    padding: 1%;
+    margin: 0.4%;
+}
+button{
+    padding: 1%;
+    margin-left: 0.8%;
+    border-radius: 0px;
+    width: 80px;
+    height: 25px;
+}
+
+.browseButton{
+    height: 40px;
+    width: 100px;
+    padding: 1%;
+    margin: 5%;
+}

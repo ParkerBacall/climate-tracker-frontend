@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Gelasio&display=swap');
+@import "scales";
+@import "colors";
+
+@mixin primary-header-font {
+    font-family: 'Gelasio', serif;
+    font-size: $large;
+    color: $primary-color-1;
+}
