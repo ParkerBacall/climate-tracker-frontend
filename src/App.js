@@ -9,14 +9,50 @@ import BrowseButton from './components/BrowseButton'
 import cogoToast from 'cogo-toast';
 import './App.scss';
 import DashboardButton from './components/DashboardButton';
-
+import Dashboard from './components/Dashboard';
+const renewable_xs =[]
+const renewable_ys =[]
+const xs=[]
+const ys=[]
 
 class App extends Component{
 
   state = {
-    loggedIn: false
+    loggedIn: false,
+    name: ""
   }
 
+
+  componentDidMount(){
+    fetch('http://localhost:3000/users',{
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+      })
+    .then(response => response.json())
+    .then(user => this.setState({
+      name: user.name
+  }))
+
+  fetch('./TempData.csv')
+        .then(response => response.text())
+        .then(data => data.split('\n').slice(1))
+        .then(table => table.forEach(row =>{
+            const column = row.split(',')
+               xs.push(column[0])
+               ys.push(parseFloat(column[1]) + 14)
+           }))
+
+    fetch('./renewableEnergy.csv')
+    .then(response => response.text())
+    .then(data => data.split('\n').slice(1))
+    .then(table => table.forEach(row =>{
+      const column = row.split(',')
+      renewable_xs.push(column[5])
+      renewable_ys.push(column[6])
+      console.log(column[5])
+    }))
+}
 
   changeLoginState = () => {
     this.state.loggedIn ? cogoToast.success("logged in") : cogoToast.success("logged out")
@@ -35,14 +71,15 @@ class App extends Component{
         <Route path="/dashboard">
               <div className="dashboard">
                 <div className='dashboard-header'>
-                  <BrowseButton />
+                  <Dashboard name={this.state.name}/>
                   <Logout logout={this.changeLoginState}/>
                 </div>
-              {/* <Chart /> */}
+                <BrowseButton />
               </div>
         </Route>
         <Route path="/browse">
           <DashboardButton />
+          <Chart name={'Renewable Energy Over Time'} xs={renewable_xs} ys={renewable_ys} />
         </Route>
         <Route path="/">
         <div className="App">
@@ -52,7 +89,7 @@ class App extends Component{
           <Signup />
           </div>
           <div className='chart-div' >
-            <Chart />
+            <Chart name={ 'Combined Land-Surface Air and Sea-Surface Water Temperature in C° Over Time'} xs={xs} ys={ys} />
           </div>
           </div>
         </Route>

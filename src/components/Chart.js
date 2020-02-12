@@ -4,25 +4,8 @@ import { Bar, Line, Pie } from 'react-chartjs-2';
 class Chart extends Component{
 
     state = {
-        xs: [],
-        ys: []
-    }
-
-    getChartData(){
-        fetch('./TempData.csv')
-        .then(response => response.text())
-        .then(data => data.split('\n').slice(1))
-        .then(table => table.forEach(row =>{
-            const column = row.split(',')
-           this.setState({
-               xs: [...this.state.xs, column[0]],
-               ys: [...this.state.ys, parseFloat(column[1]) + 14]
-            })
-           }))
-        }
-
-    componentDidMount(){
-        this.getChartData()
+        xs: this.props.xs,
+        ys: this.props.ys
     }
 
     render(){
@@ -33,7 +16,7 @@ class Chart extends Component{
                   <Line
                  data={{labels: this.state.xs,
                  datasets: [{
-                    label: 'Combined Land-Surface Air and Sea-Surface Water Temperature in C°',
+                    label: this.props.name,
                     fill: false,
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
