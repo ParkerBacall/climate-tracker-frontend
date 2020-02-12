@@ -5,13 +5,13 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Chart from './components/Chart'
-import BrowseButton from './components/BrowseButton'
 import cogoToast from 'cogo-toast';
 import './App.scss';
-import DashboardButton from './components/DashboardButton';
 import Dashboard from './components/Dashboard';
 const renewable_xs =[]
 const renewable_ys =[]
+const car_xs=[]
+const car_ys=[]
 const xs=[]
 const ys=[]
 
@@ -19,8 +19,44 @@ class App extends Component{
 
   state = {
     loggedIn: false,
-    name: ""
+    name: "",
+    graphs: [],
+    user_graphs: []
   }
+
+  getTempData = () => { 
+    fetch('./TempData.csv')
+    .then(response => response.text())
+    .then(data => data.split('\n').slice(1))
+    .then(table => table.forEach(row =>{
+        const column = row.split(',')
+          xs.push(column[0])
+          ys.push(parseFloat(column[1]) + 14)
+      }))
+      }
+
+    getCarData = () => { 
+      fetch('./CarRegistration.csv')
+      .then(response => response.text())
+      .then(data => data.split('\n'))
+      .then(table => table.forEach(row =>{
+          const column = row.split(',')
+             car_xs.push(column[5])
+             car_ys.push(column[6])
+         }))
+        }
+
+  getRenewableEnergyData = () =>{
+      fetch('./renewableEnergy.csv')
+      .then(response => response.text())
+      .then(data => data.split('\n'))
+      .then(table => table.forEach(row =>{
+        const column = row.split(',')
+        renewable_xs.push(column[5])
+        renewable_ys.push(column[6])
+      }))
+    
+    }
 
 
   componentDidMount(){
@@ -32,26 +68,10 @@ class App extends Component{
     .then(response => response.json())
     .then(user => this.setState({
       name: user.name
-  }))
-
-  fetch('./TempData.csv')
-        .then(response => response.text())
-        .then(data => data.split('\n').slice(1))
-        .then(table => table.forEach(row =>{
-            const column = row.split(',')
-               xs.push(column[0])
-               ys.push(parseFloat(column[1]) + 14)
-           }))
-
-    fetch('./renewableEnergy.csv')
-    .then(response => response.text())
-    .then(data => data.split('\n').slice(1))
-    .then(table => table.forEach(row =>{
-      const column = row.split(',')
-      renewable_xs.push(column[5])
-      renewable_ys.push(column[6])
-      console.log(column[5])
     }))
+      this.getTempData()
+      this.getRenewableEnergyData()
+      this.getCarData()
 }
 
   changeLoginState = () => {
@@ -71,15 +91,10 @@ class App extends Component{
         <Route path="/dashboard">
               <div className="dashboard">
                 <div className='dashboard-header'>
-                  <Dashboard name={this.state.name}/>
+                  <Dashboard name={this.state.name}  renewable_xs={renewable_xs} renewable_ys={renewable_ys} car_xs={car_xs} car_ys={car_ys}/>
                   <Logout logout={this.changeLoginState}/>
                 </div>
-                <BrowseButton />
               </div>
-        </Route>
-        <Route path="/browse">
-          <DashboardButton />
-          <Chart name={'Renewable Energy Over Time'} xs={renewable_xs} ys={renewable_ys} />
         </Route>
         <Route path="/">
         <div className="App">
