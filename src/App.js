@@ -8,7 +8,9 @@ import Chart from './components/Chart'
 import Browse from './components/Browse'
 import SavedGraphs from './components/SavedGraphs'
 import cogoToast from 'cogo-toast';
+import ImpactGraph from './components/ImpactGraph'
 import './App.scss';
+
 import Dashboard from './components/Dashboard';
 const xs=[]
 const ys=[]
@@ -103,7 +105,6 @@ checkLoggedIn = () => {
 
 
   render(){
-
     return (
       <Router>
         
@@ -116,6 +117,7 @@ checkLoggedIn = () => {
                   <Dashboard name={this.state.user.name} graphs={this.state.graphs} />
                   <Logout logout={this.changeLoginState}/>
                 </div>
+                <ImpactGraph user={this.state.user} user_graphs={this.state.user_graphs}/>
                 <SavedGraphs graphAction={this.removeUserGraph} graphs={this.state.user_graphs} />
               </div>
                 <div className='browse-div' >
