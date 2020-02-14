@@ -1,35 +1,30 @@
 import React, {Component} from 'react'
 import { Bar, Line, Pie } from 'react-chartjs-2';
 
-class Chart extends Component{
+function Chart({graph, graphAction, xs, ys, name}){
 
-    state = {
-        xs: this.props.xs,
-        ys: this.props.ys
+    const handleClick = event => {
+        graphAction(graph)
     }
 
-    render(){
-      console.log(this.props)
-
         return(
-            <div className='chart-div'>
+            <div onClick={handleClick} className='chart-div'>
                   <Line
-                 data={{labels: this.state.xs,
+                 data={{labels: xs,
                  datasets: [{
-                    label: this.props.name,
+                    label: name,
                     fill: false,
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
                     pointBackgroundColor: false,
                     pointHoverBackgroundColor: 'rgb(255, 99, 132)',
                     pointHoverRadius: 7,
-                    data: this.state.ys
+                    data: ys
                  }]
                 }}
                  />
             </div>
         )
-    }
 }
 
 

@@ -5,13 +5,11 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Chart from './components/Chart'
+import Browse from './components/Browse'
+import SavedGraphs from './components/SavedGraphs'
 import cogoToast from 'cogo-toast';
 import './App.scss';
 import Dashboard from './components/Dashboard';
-const renewable_xs =[]
-const renewable_ys =[]
-const car_xs=[]
-const car_ys=[]
 const xs=[]
 const ys=[]
 
@@ -19,9 +17,9 @@ class App extends Component{
 
   state = {
     loggedIn: false,
-    name: "",
     graphs: [],
-    user_graphs: []
+    user_graphs: [],
+    user:{}
   }
 
   getTempData = () => { 
@@ -35,30 +33,6 @@ class App extends Component{
       }))
       }
 
-    getCarData = () => { 
-      fetch('./CarRegistration.csv')
-      .then(response => response.text())
-      .then(data => data.split('\n'))
-      .then(table => table.forEach(row =>{
-          const column = row.split(',')
-             car_xs.push(column[5])
-             car_ys.push(column[6])
-         }))
-        }
-
-  getRenewableEnergyData = () =>{
-      fetch('./renewableEnergy.csv')
-      .then(response => response.text())
-      .then(data => data.split('\n'))
-      .then(table => table.forEach(row =>{
-        const column = row.split(',')
-        renewable_xs.push(column[5])
-        renewable_ys.push(column[6])
-      }))
-    
-    }
-
-
   componentDidMount(){
     fetch('http://localhost:3000/users',{
     headers: {
@@ -67,11 +41,20 @@ class App extends Component{
       })
     .then(response => response.json())
     .then(user => this.setState({
-      name: user.name
-    }))
+       user,
+       user_graphs: user.maps
+    })
+  )
+  
+    fetch('http://localhost:3000/maps')
+    .then(response => response.json())
+    .then(maps => maps.map(map => { 
+      this.setState({
+      graphs: [...this.state.graphs, map]
+      })
+    })
+    )
       this.getTempData()
-      this.getRenewableEnergyData()
-      this.getCarData()
 }
 
   changeLoginState = () => {
@@ -81,22 +64,54 @@ class App extends Component{
     })
   }
 
+  addUserGraph = (graph) => {
+    const graphNames = this.state.user_graphs.map(graph => graph.name)
+    if (!graphNames.includes(graph.name)){
+    this.setState({
+      user_graphs: [...this.state.user_graphs, graph]
+    })
+
+    fetch('http://localhost:3000/user_graphs',{
+      method: 'Post',
+        headers:{
+            'content-type': 'application/json'
+        },
+    body: JSON.stringify({graph: graph.id, user: this.state.user.id})
+  })
+}
+}
+
+  removeUserGraph = (graph) => {
+    const new_user_graphs = this.state.user_graphs.filter(user_graph=>{
+      return user_graph !== graph
+    })
+        this.setState({
+      user_graphs: new_user_graphs
+    })
+  }
+
+
   render(){
+
     return (
       <Router>
         
-      {this.state.loggedIn ? <Redirect to="/" /> : <Redirect to="/dashboard" />}
+      {this.state.loggedIn ? <Redirect to="/login" /> : <Redirect to="/dashboard" />}
 
       <Switch>
         <Route path="/dashboard">
               <div className="dashboard">
                 <div className='dashboard-header'>
-                  <Dashboard name={this.state.name}  renewable_xs={renewable_xs} renewable_ys={renewable_ys} car_xs={car_xs} car_ys={car_ys}/>
+                  <Dashboard name={this.state.user.name} graphs={this.state.graphs} />
                   <Logout logout={this.changeLoginState}/>
                 </div>
+                <SavedGraphs graphAction={this.removeUserGraph} graphs={this.state.user_graphs} />
+              </div>
+                <div className='browse-div' >
+                  <Browse graphs={this.state.graphs} graphAction={this.addUserGraph}/>
               </div>
         </Route>
-        <Route path="/">
+        <Route path="/login">
         <div className="App">
         <Header/>
           <div className='auth-forms-container'>
