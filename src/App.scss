@@ -5,6 +5,7 @@
 
 body{
     @include primary-header-font; 
+    background-color: #6767;
     .App{
         display: flex;
         justify-content: space-between;

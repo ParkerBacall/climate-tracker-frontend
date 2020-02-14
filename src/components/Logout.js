@@ -2,8 +2,7 @@ import React from 'react'
 
 export default function({logout}) {
 
-    const dologout = () => {
-        localStorage.clear()
+    const dologout = () => {        
         logout()
     }
 

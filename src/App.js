@@ -7,13 +7,10 @@ import Logout from './components/Logout'
 import Chart from './components/Chart'
 import Browse from './components/Browse'
 import SavedGraphs from './components/SavedGraphs'
-import cogoToast from 'cogo-toast';
 import ImpactGraph from './components/ImpactGraph'
 import './App.scss';
-
 import Dashboard from './components/Dashboard';
-const xs=[]
-const ys=[]
+
 
 class App extends Component{
 
@@ -21,7 +18,9 @@ class App extends Component{
     loggedIn: false,
     graphs: [],
     user_graphs: [],
-    user:{}
+    user:{},
+    xs: [],
+    ys: []
   }
 
   getTempData = () => { 
@@ -30,13 +29,15 @@ class App extends Component{
     .then(data => data.split('\n').slice(1))
     .then(table => table.forEach(row =>{
         const column = row.split(',')
-          xs.push(column[0])
-          ys.push(parseFloat(column[1]) + 14)
+        this.setState({
+        xs: [...this.state.xs, column[0]],
+        ys: [...this.state.ys, parseFloat(column[1]) + 14]
+        })
       }))
       }
 
   componentDidMount(){ 
-    
+    console.log('mounted')
     fetch('http://localhost:3000/maps')
     .then(response => response.json())
     .then(maps => maps.map(map => { 
@@ -45,6 +46,21 @@ class App extends Component{
       })
     })
     )
+      this.checkLoggedIn()
+      this.getTempData()
+}
+
+checkLoggedIn = () => {
+  if (localStorage.token) this.setState({
+    loggedIn: true
+  })
+}
+
+
+  changeLoginState = () => {
+    this.setState({
+      loggedIn: true
+    })
     fetch('http://localhost:3000/users',{
       headers: {
         'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -56,22 +72,6 @@ class App extends Component{
          user_graphs: user.maps
       })
     )
-      this.getTempData()
-      this.checkLoggedIn()
-}
-
-checkLoggedIn = () => {
-  if (localStorage.token) this.setState({
-    loggedIn: true
-  })
-}
-
-
-  changeLoginState = () => {
-    this.state.user ? cogoToast.success("logged in") : cogoToast.success("logged out")
-    this.setState({
-      loggedIn: !this.state.loggedIn
-    })
     }
 
   addUserGraph = (graph) => {
@@ -103,6 +103,16 @@ checkLoggedIn = () => {
   })
   }
 
+  logout = () =>{
+    localStorage.clear()
+    this.setState({
+      loggedIn: false,
+      user:{},
+      user_graphs: []
+    })
+
+  }
+
 
   render(){
     return (
@@ -115,7 +125,7 @@ checkLoggedIn = () => {
               <div className="dashboard">
                 <div className='dashboard-header'>
                   <Dashboard name={this.state.user.name} graphs={this.state.graphs} />
-                  <Logout logout={this.changeLoginState}/>
+                  <Logout logout={this.logout}/>
                 </div>
                 <ImpactGraph user={this.state.user} user_graphs={this.state.user_graphs}/>
                 <SavedGraphs graphAction={this.removeUserGraph} graphs={this.state.user_graphs} />
@@ -132,7 +142,7 @@ checkLoggedIn = () => {
           <Signup />
           </div>
           <div className='chart-div' >
-            <Chart name={ 'Combined Land-Surface Air and Sea-Surface Water Temperature in C° Over Time'} xs={xs} ys={ys} />
+            <Chart name={ 'Combined Land-Surface Air and Sea-Surface Water Temperature in C° Over Time'} xs={this.state.xs} ys={this.state.ys} />
           </div>
           </div>
         </Route>

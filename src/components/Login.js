@@ -22,6 +22,13 @@ export default class Login extends Component {
         this.login(userObj)
     }
 
+    run = (resault) => {
+        localStorage.setItem('token', resault.token)
+        localStorage.setItem('user', resault.user) 
+        cogoToast.success("Logged in!")
+        this.props.login()
+    }
+
     login(user){
         fetch(Base_url + 'login', {
         method: 'Post',
@@ -34,10 +41,9 @@ export default class Login extends Component {
         .then(resault => {
             return resault.error 
             ? cogoToast.error(resault.error)
-            :localStorage.setItem('token', resault.token) && localStorage.setItem('user', resault.user)  
-            && cogoToast.success("Logged in!");
+            : this.run(resault)
         })
-        .then(this.props.login)
+        
     }
 
 
