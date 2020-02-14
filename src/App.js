@@ -33,19 +33,8 @@ class App extends Component{
       }))
       }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/users',{
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
-      })
-    .then(response => response.json())
-    .then(user => this.setState({
-       user,
-       user_graphs: user.maps
-    })
-  )
-  
+  componentDidMount(){ 
+    
     fetch('http://localhost:3000/maps')
     .then(response => response.json())
     .then(maps => maps.map(map => { 
@@ -54,15 +43,34 @@ class App extends Component{
       })
     })
     )
+    fetch('http://localhost:3000/users',{
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+      }
+        })
+      .then(response => response.json())
+      .then(user => this.setState({
+         user,
+         user_graphs: user.maps
+      })
+    )
       this.getTempData()
+      this.checkLoggedIn()
 }
 
+checkLoggedIn = () => {
+  if (localStorage.token) this.setState({
+    loggedIn: true
+  })
+}
+
+
   changeLoginState = () => {
-    this.state.loggedIn ? cogoToast.success("logged in") : cogoToast.success("logged out")
+    this.state.user ? cogoToast.success("logged in") : cogoToast.success("logged out")
     this.setState({
       loggedIn: !this.state.loggedIn
     })
-  }
+    }
 
   addUserGraph = (graph) => {
     const graphNames = this.state.user_graphs.map(graph => graph.name)
@@ -88,6 +96,9 @@ class App extends Component{
         this.setState({
       user_graphs: new_user_graphs
     })
+    fetch('http://localhost:3000/user_graphs/' + graph.id,{
+      method: 'DELETE',
+  })
   }
 
 
@@ -96,7 +107,7 @@ class App extends Component{
     return (
       <Router>
         
-      {this.state.loggedIn ? <Redirect to="/login" /> : <Redirect to="/dashboard" />}
+      {!this.state.loggedIn ? <Redirect to="/login" /> : <Redirect to="/dashboard" />}
 
       <Switch>
         <Route path="/dashboard">

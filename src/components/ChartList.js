@@ -10,7 +10,7 @@ export default function ChartList({graphs, graphAction}) {
     })
 
     return (
-        <div>
+        <div className='chart-list-div'>
             {showGraphs}
         </div>
     )

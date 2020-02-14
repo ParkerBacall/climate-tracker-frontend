@@ -1,7 +1,7 @@
 @import "./styles/typography";
 @import "./styles/scales";
 @import "./styles/colors";
-
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans&display=swap');
 
 body{
     @include primary-header-font; 
@@ -9,6 +9,8 @@ body{
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        
+   
     .chart-div{
         margin: 1%;
         width: 70%;
@@ -59,6 +61,19 @@ body{
 
 }
 
+.chart-list-div{
+display: flex;
+flex-wrap: wrap;
+.chart-div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 1%;
+    width: 45%;
+    height: 35%;
+    box-shadow: 0px 0px 10px #666;
+}
+}
 input{
     padding: 1%;
     margin: 0.4%;
@@ -70,8 +85,24 @@ button{
     width: 80px;
     height: 25px;
 }
+
+.header{
+    margin: 0px;
+    padding-top: 60px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+}
+
 h1{
     margin: 0px;
     padding-top: 50px;
-    padding-left: 170px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+}
+
+h2{
+    margin: 0px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 70px;
 }

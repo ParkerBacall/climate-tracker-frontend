@@ -6,7 +6,6 @@ function Chart({graph, graphAction, xs, ys, name}){
     const handleClick = event => {
         graphAction(graph)
     }
-
         return(
             <div onClick={handleClick} className='chart-div'>
                   <Line
@@ -20,8 +19,12 @@ function Chart({graph, graphAction, xs, ys, name}){
                     pointHoverBackgroundColor: 'rgb(255, 99, 132)',
                     pointHoverRadius: 7,
                     data: ys
-                 }]
+                 }],
+                 options: {
+                    responsive: true,
                 }}
+                }
+               
                  />
             </div>
         )

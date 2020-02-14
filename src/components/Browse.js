@@ -5,8 +5,8 @@ export default function Browse({graphs, graphAction}) {
 
     
     return (
-        <div>
-            <h2>browse:</h2>
+        <div className='browseBodyDiv'>
+            <h2>Browse</h2>
             <ChartList graphAction={graphAction} graphs={graphs}/>
         </div>
     )
