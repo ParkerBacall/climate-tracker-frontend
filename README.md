@@ -1,68 +1,31 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Screen Shot 2020-02-16 at 5 55 47 PM](https://user-images.githubusercontent.com/17993120/74616557-c02b0880-50e5-11ea-9a0d-3140237302b5.png)
 
-## Available Scripts
 
-In the project directory, you can run:
+### Run Instructions and Overview:
 
-### `yarn start`
+1. This app is (almost) deployed!
+    1. When the page loads you will be on the login page
+    1. From here you can create a new user and then sign in as that user and check out a graph on global tempature over time
+    1. Upon signing in you will be redirected to your personized climate tracker dashbord
+    
+![Screen Shot 2020-02-16 at 5 35 59 PM](https://user-images.githubusercontent.com/17993120/74616731-ca99d200-50e6-11ea-9580-78b7af200ad1.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Your Dashboard
+    1. From your dashboard you can see a graph that tracks your climate impact over time
+    1. Bellow can browse some graphs showing various activities that impact the climate. 
+    1. Click on one of these graphs to add it to your dashboard of activities you practice that impact the planet
+    1. When you are done log out all of you data will persist if you log back in
+    
+1. Graphs
+    1. As your personal impact list grows your impact graph updates showing how far you've come!
+    1. If you want to delete a practice from your list click on it in your personal list and it will be deleted updating you impact graph.
+    1. Hovering over the points on any graph will show you the data for that exact point
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `yarn test`
+    
+![Screen Shot 2020-02-16 at 5 35 01 PM](https://user-images.githubusercontent.com/17993120/74616793-22d0d400-50e7-11ea-9376-e3f8ce56b55d.png)
+![Screen Shot 2020-02-16 at 6 08 57 PM](https://user-images.githubusercontent.com/17993120/74616856-6deae700-50e7-11ea-8dde-2237eca700e8.png)
+![Screen Shot 2020-02-16 at 5 35 23 PM](https://user-images.githubusercontent.com/17993120/74616795-24020100-50e7-11ea-8733-8ac4b3ba06fd.png)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Here is a [video](https://youtu.be/B7iP1m9zFUc) showing off the functionality of the application!
