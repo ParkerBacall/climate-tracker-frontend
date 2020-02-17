@@ -5,7 +5,7 @@
 
 body{
     @include primary-header-font; 
-    background-color: #6767;
+    // background-color: rgb(255, 241, 241);
     .App{
         display: flex;
         justify-content: space-between;
@@ -72,9 +72,20 @@ flex-wrap: wrap;
     margin: 1%;
     width: 45%;
     height: 35%;
-    box-shadow: 0px 0px 10px #666;
+    box-shadow: 0px 0px 4px #666;
 }
 }
+.ImpactGraph{
+        display: flex;
+        justify-content: center;
+    .chart-div{
+        margin: 1%;
+        width: 65%;
+        height: 35%;
+        box-shadow: 0px 0px 1px #666;
+        }
+}
+
 input{
     padding: 1%;
     margin: 0.4%;
@@ -98,7 +109,7 @@ h1{
     margin: 0px;
     padding-top: 50px;
     padding-bottom: 50px;
-    padding-left: 100px;
+    padding-left: 255px;
 }
 
 h2{
@@ -106,4 +117,10 @@ h2{
     padding-top: 50px;
     padding-bottom: 50px;
     padding-left: 70px;
+}
+
+canvas{
+    // background-color: rgb(164, 243, 217);
+    // box-shadow: 0px 0px 15px #666;
+    box-shadow: 0px 0px 1px #666;
 }

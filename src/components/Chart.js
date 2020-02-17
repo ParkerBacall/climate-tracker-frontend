@@ -13,10 +13,10 @@ function Chart({graph, graphAction, xs, ys, name}){
                  datasets: [{
                     label: name,
                     fill: false,
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgb(88, 200, 219)',
+                    borderColor: 'hsl(133, 55%, 43%)',
                     pointBackgroundColor: false,
-                    pointHoverBackgroundColor: 'rgb(255, 99, 132)',
+                    pointHoverBackgroundColor: 'rgb(88, 200, 219)',
                     pointHoverRadius: 7,
                     data: ys
                  }],

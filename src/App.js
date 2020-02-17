@@ -51,9 +51,21 @@ class App extends Component{
 }
 
 checkLoggedIn = () => {
-  if (localStorage.token) this.setState({
+  if (localStorage.token){ this.setState({
     loggedIn: true
   })
+  fetch('http://localhost:3000/users',{
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+      })
+    .then(response => response.json())
+    .then(user => this.setState({
+       user,
+       user_graphs: user.maps
+    })
+  )
+}
 }
 
 

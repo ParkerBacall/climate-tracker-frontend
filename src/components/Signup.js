@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import cogoToast from 'cogo-toast';
 const Base_url = 'http://localhost:3000/'
 
 export default class Signup extends Component {
@@ -20,6 +21,12 @@ export default class Signup extends Component {
     handleSubmit = event =>{
         const userObj = {user: this.state}
         this.createUser(userObj)
+        this.setState({
+            name: "",
+            username: "",
+            email: "",
+            password: ""
+        })
     }
 
     createUser(user){
@@ -30,6 +37,7 @@ export default class Signup extends Component {
         },
         body: JSON.stringify(user)
         })
+        cogoToast.success("Signed up!")
     }
 
 
