@@ -4,7 +4,7 @@
 ### Run Instructions and Overview:
 
 1. This app is deployed!
-    1. Navigate to [https://climate-impact-tra.firebaseapp.com/login](url)
+    1. Navigate to [https://climate-impact-tra.firebaseapp.com](url)
     1. When the page loads you will be on the login page
     1. From here you can create a new user and then sign in as that user and check out a graph on global tempature over time
     1. Upon signing in you will be redirected to your personized climate tracker dashbord
